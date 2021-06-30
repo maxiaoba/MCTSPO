@@ -13,21 +13,21 @@ dependencies:
     # - scipy
     - path.py
     # - python-dateutil
-    - joblib
+    # - joblib
     # - mako
     # - ipywidgets
     # - numba
     # - flask
     # - pybox2d
-    - pygame
+    # - pygame
     # - h5py
-    - matplotlib
+    # - matplotlib
     # - opencv3=3.1.0
     # - scikit-learn
     # - pytorch==0.1.9
     # - torchvision==0.1.6
     # - mpi4py
-    - pandas
+    # - pandas
     # - graphviz
     - pip:
         - Pillow
