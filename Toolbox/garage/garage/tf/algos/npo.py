@@ -121,7 +121,7 @@ class NPO(BatchPolopt):
 
         num_traj = self.batch_size // self.max_path_length
         actions = samples_data["actions"][:num_traj, ...]
-        logger.record_histogram("{}/Actions".format(self.policy.name), actions)
+        # logger.record_histogram("{}/Actions".format(self.policy.name), actions)
 
         self._fit_baseline(samples_data)
 
