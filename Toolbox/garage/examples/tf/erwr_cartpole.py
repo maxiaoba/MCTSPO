@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+"""
+This is an example to train a task with ERWR algorithm.
+
+Here it runs CartpoleEnv on ERWR with 100 iterations.
+
+Results:
+    AverageReturn: 100
+    RiseTime: itr 34
+"""
+from garage.baselines import LinearFeatureBaseline
+from garage.experiment import run_experiment
+from garage.tf.algos import ERWR
+from garage.tf.envs import TfEnv
+from garage.tf.policies import CategoricalMLPPolicy
+
+
+def run_task(*_):
+    """Wrap ERWR training task in the run_task function."""
+    env = TfEnv(env_name="CartPole-v1")
+
+    policy = CategoricalMLPPolicy(
+        name="policy", env_spec=env.spec, hidden_sizes=(32, 32))
+
+    baseline = LinearFeatureBaseline(env_spec=env.spec)
+
+    algo = ERWR(
+        env=env,
+        policy=policy,
+        baseline=baseline,
+        batch_size=10000,
+        max_path_length=100,
+        n_itr=100,
+        plot=True,
+        discount=0.99)
+    algo.train()
+
+
+run_experiment(
+    run_task,
+    n_parallel=1,
+    snapshot_mode="last",
+    seed=1,
+    plot=True,
+)
