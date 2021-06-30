@@ -1,4 +1,4 @@
-name: MCTSPO
+name: mctspo
 channels:
     - https://conda.anaconda.org/kne 
     - https://conda.anaconda.org/tlatorre 
