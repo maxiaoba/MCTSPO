@@ -5,7 +5,7 @@ import warnings
 import glfw
 import gym
 from gym.spaces import Box as GymBox
-from gym.spaces import Dict as GymDict
+# from gym.spaces import Dict as GymDict
 from gym.spaces import Discrete as GymDiscrete
 from gym.spaces import Tuple as GymTuple
 
@@ -13,7 +13,7 @@ from garage.core import Parameterized
 from garage.core import Serializable
 from garage.envs.env_spec import EnvSpec
 from garage.spaces import Box
-from garage.spaces import Dict
+# from garage.spaces import Dict
 from garage.spaces import Discrete
 from garage.spaces import Tuple
 
@@ -165,8 +165,8 @@ class GarageEnv(gym.Wrapper, Parameterized, Serializable):
         """
         if isinstance(space, GymBox):
             return Box(low=space.low, high=space.high, dtype=space.dtype)
-        elif isinstance(space, GymDict):
-            return Dict(space.spaces)
+        # elif isinstance(space, GymDict):
+        #     return Dict(space.spaces)
         elif isinstance(space, GymDiscrete):
             return Discrete(space.n)
         elif isinstance(space, GymTuple):
