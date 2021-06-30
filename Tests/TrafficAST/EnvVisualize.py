@@ -21,15 +21,16 @@ obs = env.reset()
 path_length = 0
 env.render()
 while True:
-    action = input("Action in {}\n".format(env.rl_actions))
-    action = int(action)
-    while action < 0:
-        t = 0
-        cr = 0.
-        env.reset()
-        env.render()
-        action = input("Action\n")
-        action = int(action)
+    # action = input("Action in {}\n".format(env.rl_actions))
+    # action = int(action)
+    # while action < 0:
+    #     t = 0
+    #     cr = 0.
+    #     env.reset()
+    #     env.render()
+    #     action = input("Action\n")
+    #     action = int(action)
+    action = env.action_space.sample()
     obs, reward, done, env_info = env.step(action)
     path_length += 1
     env.render()

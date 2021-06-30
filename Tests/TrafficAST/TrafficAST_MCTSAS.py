@@ -17,6 +17,7 @@ import csv
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--exp_name', type=str, default="cartpole")
+parser.add_argument('--inita', type=float, default=0.5)
 parser.add_argument('--itr', type=int, default=30000)
 parser.add_argument('--k',type=float, default=0.5)
 parser.add_argument('--alpha',type=float, default=0.5)
@@ -25,12 +26,13 @@ parser.add_argument('--log_interval', type=int, default=10000) # per step_num
 parser.add_argument('--seed', type=int, default=0)
 parser.add_argument('--snapshot_mode', type=str, default="gap")
 parser.add_argument('--snapshot_gap', type=int, default=50)
-parser.add_argument('--log_dir', type=str, default='./Data/AST/MCTSAS')
+parser.add_argument('--log_dir', type=str, default='MCTSAS')
 parser.add_argument('--args_data', type=str, default=None)
 args = parser.parse_args()
 
 # Create the logger
-log_dir = args.log_dir\
+pre_dir = './Data/AST_inita{}/'.format(args.inita)
+log_dir = pre_dir+args.log_dir\
             +('K'+str(args.k))\
             +('A'+str(args.alpha))\
             +('Ec'+str(args.ec))\
