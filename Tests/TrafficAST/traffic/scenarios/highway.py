@@ -224,7 +224,7 @@ class HighWay(TrafficEnv):
     def observation_space(self):
         low = -np.ones(int(4*self.max_veh_num))
         high = np.ones(int(4*self.max_veh_num))
-        return spaces.Box(low=low, high=high, dtype=np.float32)
+        return spaces.Box(low=low, high=high) #, dtype=np.float32)
 
     @property
     def action_space(self):
@@ -350,12 +350,12 @@ class HighWay(TrafficEnv):
     def ast_observation_space(self):
         low = -np.ones(int(4*self.max_veh_num))
         high = np.ones(int(4*self.max_veh_num))
-        return spaces.Box(low=low, high=high, dtype=np.float32)
+        return spaces.Box(low=low, high=high) #, dtype=np.float32)
 
     @property
     def ast_action_space(self):
         high = np.ones(1*(self.max_veh_num-1))
-        return spaces.Box(-high, high, dtype=np.float32)
+        return spaces.Box(-high, high) #, dtype=np.float32)
 
     def get_observation(self):
         return self.observe()
