@@ -9,8 +9,8 @@ channels:
     - conda-forge
 dependencies:
     - python=3.5.2
-    - numpy
-    - scipy
+    # - numpy
+    # - scipy
     - path.py
     # - python-dateutil
     - joblib
