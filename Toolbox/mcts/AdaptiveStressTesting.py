@@ -104,7 +104,6 @@ class AdaptiveStressTest:
             self.iter += 1
             logger.log(' ')
             logger.record_tabular('StepNum',self.step_count)
-            record_num = 0
 
             params = dict()
             top_paths = dict()
@@ -114,12 +113,12 @@ class AdaptiveStressTest:
             logger.save_itr_params(self.iter, params)
             logger.log("Saved")
 
+            record_num = 0
             for (topi, path) in enumerate(self.top_paths):
                 logger.record_tabular('reward '+str(topi), path[1])
                 record_num += 1
-
             for topi_left in range(record_num, self.top_paths.N):
-                tabular.record('reward ' + str(topi_left), 0)
+                logger.record_tabular('reward ' + str(topi_left), 0)
             logger.dump_tabular(with_prefix=False)
 
     def isterminal(self):

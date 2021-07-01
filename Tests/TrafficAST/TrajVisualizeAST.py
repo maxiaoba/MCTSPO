@@ -28,7 +28,7 @@ from traffic.make_env import make_env
 import pdb
 
 with tf.Session() as sess:
-    data = joblib.load("Data/AST_inita0.5/Randombs2000/seed0/itr_0.pkl")
+    data = joblib.load("Data/AST_inita0.6/GATRDP100T20K3lr1.0Fmean/seed0/itr_200.pkl")
     env = data['env']
     top_paths = data['top_paths']
 
@@ -41,8 +41,9 @@ with tf.Session() as sess:
         obs = env.reset()
         path_length = 0
         cr = 0.
-        for a in action_sequence:
-            # print(a)
+        for i,a in enumerate(action_sequence):
+            if i == 0:
+                print('init a: ',a)
             obs, reward, done, env_info = env.step(a)
             path_length += 1
             cr += reward

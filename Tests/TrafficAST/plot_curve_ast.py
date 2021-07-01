@@ -20,27 +20,29 @@ itr_field = 'StepNum'
 min_loss = [0.]*100
 max_loss = [np.inf]*100
 
-prepath = "./Data/AST"
-plot_path = "./Data/AST"
+prepath = "./Data/AST_inita0.6"
+plot_path = "./Data/AST_inita0.6"
 
 policies = [
+         "Randombs2000",
          "MCTSASK0.5A0.5Ec10.0",
          "TRPObs2000lr0.1",
          "GATRDP100T20K3lr1.0Fmean",
-         "PSMCTSTRCK0.5A0.5Ec10.0CA4lr1.0FmeanQmax",
+         # "PSMCTSTRCK0.5A0.5Ec10.0CA4lr1.0FmeanQmax",
          ]
 pre_name = ''
 post_name = ''
 
 # policy_names = policies
 policy_names = [
+                "Random",
                 "MCTS",
                 "TRPO",
                 "GATRD",
-                "PSMCTSTRC",
+                # "PSMCTSTRC",
             ]
-extra_name = 'seed2'
-seeds = [2]
+extra_name = ''
+seeds = [0,1,2,3,4]
 
 colors = []
 for pid in range(len(policies)):
