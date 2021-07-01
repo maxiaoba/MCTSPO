@@ -64,7 +64,8 @@ with tf.Session() as sess:
 
 	# Instantiate the env
 	from traffic.make_env import make_env
-	env_inner = make_env(env_name='highway')
+	env_inner = make_env(env_name='highway',
+						init_ast_action_scale=args.inita,)
 	data = joblib.load("Data/Train/TRPO/seed0/itr_1000.pkl")
 	policy_inner = data['policy']
 

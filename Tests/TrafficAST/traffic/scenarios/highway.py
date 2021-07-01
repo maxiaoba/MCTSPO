@@ -125,7 +125,9 @@ class HighWay(TrafficEnv):
         self.goal_reward = goal_reward
 
         self.init_ast_action_scale = init_ast_action_scale
+        print('init_ast_action_scale: ',init_ast_action_scale)
         self.ast_action_scale = ast_action_scale
+        print('ast_action_scale: ',ast_action_scale)
 
         self.bound = 30.
         self.lane_start = 0
