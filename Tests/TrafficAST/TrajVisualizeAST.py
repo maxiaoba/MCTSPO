@@ -28,7 +28,7 @@ from traffic.make_env import make_env
 import pdb
 
 with tf.Session() as sess:
-    data = joblib.load("Data/AST_inita0.6/GATRDP100T20K3lr1.0Fmean/seed0/itr_200.pkl")
+    data = joblib.load("Data/AST_inita0.5/GATRDP100T20K3lr1.0Fmean/seed0/itr_200.pkl")
     env = data['env']
     top_paths = data['top_paths']
 

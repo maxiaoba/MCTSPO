@@ -5,12 +5,28 @@ import garage.misc.logger as logger
 from garage.tf.algos.batch_polopt import BatchPolopt
 from mylab.samplers.vectorized_sampler import VectorizedSampler
 from mylab.utils.seeding import hash_seed
-from mylab.utils.mcts_utils import *
 import numpy as np
 import tensorflow as tf
 
 from mylab.utils import seeding
 from mylab.utils.np_weight_init import init_policy_np
+
+class StateActionStateNode:
+    def __init__(self):
+        self.n = 0 #UInt64
+        self.r = None #Float64
+
+class StateActionNode:
+    def __init__(self):
+        self.s = {} #Dict{State,StateActionStateNode}
+        self.n = 0 #UInt64
+        self.q = None #Float64
+
+class StateNode:
+    def __init__(self):
+        self.a = {} #Dict{Action,StateActionNode}
+        self.n = 0 #UInt64
+        self.v = None #float64
 
 class PSMCTS(BatchPolopt):
     """
@@ -176,10 +192,14 @@ class PSMCTS(BatchPolopt):
         cA = self.s[s].a[a]
         cA.n += 1
         if self.f_Q == "mean":
+            if cA.q is None:
+                cA.q = 0.
             cA.q += (q-cA.q)/float(cA.n)
             self.s[s].a[a] = cA
             return q
         else:
+            if cA.q is None:
+                cA.q = -np.inf
             if q > cA.q:
                 cA.q = q
             self.s[s].a[a] = cA
