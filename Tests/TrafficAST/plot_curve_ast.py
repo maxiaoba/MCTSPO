@@ -20,17 +20,14 @@ itr_field = 'StepNum'
 min_loss = [0.]*100
 max_loss = [np.inf]*100
 
-prepath = "./Data/AST_inita0.5"
-plot_path = "./Data/AST_inita0.5"
+prepath = "./Data/AST_inita0.7"
+plot_path = "./Data/AST_inita0.7"
 
 policies = [
-         # "Randombs2000",
-         # "MCTSASK0.5A0.5Ec10.0",
-         # "TRPObs2000lr0.1",
-         # "GATRDP100T20K3lr1.0Fmean",
-         "PSMCTSTRCK0.2A0.2Ec1.0CA4lr1.0FmeanQmax",
-         "PSMCTSTRCK0.2A0.2Ec10.0CA4lr1.0FmeanQmax",
-         "PSMCTSTRCK0.2A0.2Ec100.0CA4lr1.0FmeanQmax",
+         "Randombs2000",
+         "MCTSASK0.5A0.5Ec10.0",
+         "TRPObs2000lr0.1",
+         "GATRDP100T20K3lr1.0Fmean",
          # "PSMCTSTRCK0.3A0.3Ec1.0CA4lr1.0FmeanQmax",
          # "PSMCTSTRCK0.3A0.3Ec10.0CA4lr1.0FmeanQmax",
          # "PSMCTSTRCK0.3A0.3Ec100.0CA4lr1.0FmeanQmax",
@@ -38,7 +35,7 @@ policies = [
          # "PSMCTSTRCK0.5A0.5Ec10.0CA4lr1.0FmeanQmax",
          # "PSMCTSTRCK0.5A0.5Ec100.0CA4lr1.0FmeanQmax",
          # "PSMCTSTRCK0.8A0.8Ec1.0CA4lr1.0FmeanQmax",
-         # "PSMCTSTRCK0.8A0.8Ec10.0CA4lr1.0FmeanQmax",
+         "PSMCTSTRCK0.8A0.8Ec10.0CA4lr1.0FmeanQmax",
          # "PSMCTSTRCK0.8A0.8Ec100.0CA4lr1.0FmeanQmax",
          ]
 pre_name = ''
@@ -46,13 +43,10 @@ post_name = ''
 
 # policy_names = policies
 policy_names = [
-                # "Random",
-                # "MCTS",
-                # "TRPO",
-                # "GATRD",
-                "PSMCTSTRCk0.2alpha0.2ec1.0",
-                "PSMCTSTRCk0.2alpha0.2ec10.0",
-                "PSMCTSTRCk0.2alpha0.2ec100.0",
+                "Random",
+                "MCTS",
+                "TRPO",
+                "GATRD",
                 # "PSMCTSTRCk0.3alpha0.3ec1.0",
                 # "PSMCTSTRCk0.3alpha0.3ec10.0",
                 # "PSMCTSTRCk0.3alpha0.3ec100.0",
@@ -60,10 +54,10 @@ policy_names = [
                 # "PSMCTSTRCk0.5alpha0.5ec10.0",
                 # "PSMCTSTRCk0.5alpha0.5ec100.0",
                 # "PSMCTSTRCk0.8alpha0.8ec1.0",
-                # "PSMCTSTRCk0.8alpha0.8ec10.0",
+                "PSMCTSTRCk0.8alpha0.8ec10.0",
                 # "PSMCTSTRCk0.8alpha0.8ec100.0",
             ]
-extra_name = 'K0.2Alpha0.2'
+extra_name = ''
 seeds = [0,1,2,3,4]
 
 colors = []
@@ -125,7 +119,7 @@ for fid,field in enumerate(fields):
         print(Losses.shape)
         y = np.mean(Losses,0)
         print(y[-1])
-        yerr = np.std(Losses,0)
+        yerr = np.std(Losses,0)/np.sqrt(Losses.shape[0])
         plot, = plt.plot(itrs,y,colors[policy_index])
         plt.fill_between(itrs,y+yerr,y-yerr,linewidth=0,
                             facecolor=colors[policy_index],alpha=0.3)

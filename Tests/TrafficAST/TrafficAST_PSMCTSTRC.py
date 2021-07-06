@@ -25,6 +25,7 @@ import numpy as np
 parser = argparse.ArgumentParser()
 parser.add_argument('--exp_name', type=str, default="cartpole")
 parser.add_argument('--inita', type=float, default=0.5)
+parser.add_argument('--nd', action='store_true', default=False) # no distance
 parser.add_argument('--itr', type=int, default=20000)
 parser.add_argument('--k',type=float, default=0.5)
 parser.add_argument('--alpha',type=float, default=0.5)
@@ -45,7 +46,10 @@ parser.add_argument('--args_data', type=str, default=None)
 args = parser.parse_args()
 
 # Create the logger
-pre_dir = './Data/AST_inita{}/'.format(args.inita)
+pre_dir = './Data/AST_'\
+            +'inita'+str(args.inita)\
+            +('nd' if args.nd else '')\
+            +'/'
 log_dir = pre_dir+args.log_dir\
             +('K'+str(args.k))\
             +('A'+str(args.alpha))\
@@ -92,7 +96,10 @@ with tf.Session() as sess:
     from mylab.rewards.ast_reward import ASTReward
     from mylab.envs.ast_env import ASTEnv
     from mylab.simulators.policy_simulator import PolicySimulator
-    reward_function = ASTReward()
+    if args.nd:
+        reward_function = ASTReward(k2=0.)
+    else:
+        reward_function = ASTReward()
     simulator = PolicySimulator(env=env_inner,policy=policy_inner,max_path_length=100)
     env = TfEnv(ASTEnv(interactive=True,
                                  simulator=simulator,
