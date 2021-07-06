@@ -66,49 +66,49 @@ np.random.seed(seed)
 tf.set_random_seed(seed)
 with tf.Session() as sess:
 
-	# Instantiate the env
-	from traffic.make_env import make_env
-	env_inner = make_env(env_name='highway',
-						init_ast_action_scale=args.inita,)
-	data = joblib.load("Data/Train/TRPO/seed0/itr_1000.pkl")
-	policy_inner = data['policy']
+    # Instantiate the env
+    from traffic.make_env import make_env
+    env_inner = make_env(env_name='highway',
+                        init_ast_action_scale=args.inita,)
+    data = joblib.load("Data/Train/TRPO/seed0/itr_1000.pkl")
+    policy_inner = data['policy']
 
-	from mylab.rewards.ast_reward import ASTReward
-	from mylab.envs.ast_env import ASTEnv
-	from mylab.simulators.policy_simulator import PolicySimulator
-	from mylab.envs.tfenv import TfEnv
+    from mylab.rewards.ast_reward import ASTReward
+    from mylab.envs.ast_env import ASTEnv
+    from mylab.simulators.policy_simulator import PolicySimulator
+    from mylab.envs.tfenv import TfEnv
     if args.nd:
         reward_function = ASTReward(k2=0.)
     else:
         reward_function = ASTReward()
-	simulator = PolicySimulator(env=env_inner,policy=policy_inner,max_path_length=100)
-	env = TfEnv(ASTEnv(interactive=True,
-	                             simulator=simulator,
-	                             sample_init_state=False,
-	                             s_0=0., # not used
-	                             reward_function=reward_function,
-	                             ))
+    simulator = PolicySimulator(env=env_inner,policy=policy_inner,max_path_length=100)
+    env = TfEnv(ASTEnv(interactive=True,
+                                 simulator=simulator,
+                                 sample_init_state=False,
+                                 s_0=0., # not used
+                                 reward_function=reward_function,
+                                 ))
 
-	algo = MCTS(
-	        env=env,
-	        max_path_length=100,
-	        ec=args.ec,
-	        n_itr=args.itr+1,
-	        k=args.k,
-	        alpha=args.alpha,
-	        clear_nodes=True,
-	        log_interval=args.log_interval,
-	        top_paths=top_paths,
-	        log_dir=args.log_dir,
-	        gamma=1.0,
-	        stress_test_mode=2,
-	        log_tabular=True,
-	        plot_tree=False,
-	        plot_path=None,
-	        plot_format='png'
-			)
+    algo = MCTS(
+            env=env,
+            max_path_length=100,
+            ec=args.ec,
+            n_itr=args.itr+1,
+            k=args.k,
+            alpha=args.alpha,
+            clear_nodes=True,
+            log_interval=args.log_interval,
+            top_paths=top_paths,
+            log_dir=args.log_dir,
+            gamma=1.0,
+            stress_test_mode=2,
+            log_tabular=True,
+            plot_tree=False,
+            plot_path=None,
+            plot_format='png'
+            )
 
-	algo.train(runner=None)
+    algo.train(runner=None)
 
 
 
